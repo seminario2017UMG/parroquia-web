@@ -1,0 +1,14 @@
+/* 
+    Created on : Oct 10, 2017, 9:11:47 PM
+    Author     : lveliz
+*/
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
