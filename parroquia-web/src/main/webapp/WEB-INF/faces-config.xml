@@ -3,16 +3,18 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
-    <locale-config>
-        <default-locale>es</default-locale>
-        <supported-locale>es</supported-locale>
-        <supported-locale>es_GT</supported-locale>
-    </locale-config>
+    <application>
         
-    <resource-bundle>
-        <base-name>props</base-name>
-        <var>p</var>
-    </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+            <supported-locale>es</supported-locale>
+            <supported-locale>es_GT</supported-locale>
+        </locale-config>
         
+        <resource-bundle>
+            <base-name>props</base-name>
+            <var>props</var>
+        </resource-bundle>
+        
+    </application>
 </faces-config>
