@@ -1,0 +1,23 @@
+{
+  "name": "parroquia-web",
+  "homepage": "https://github.com/seminario2017UMG/parroquia-web",
+  "description": "Proyecto de seminario para la Parroquia San Juan Bautista",
+  "main": "",
+  "authors": [
+    "Luis Veliz <l.veliz@live.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "3.2.1",
+    "materialize": "0.100.2",
+    "chart.js": "chartjs#2.7.0"
+  }
+}
