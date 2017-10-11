@@ -1,0 +1,30 @@
+/* 
+    Created on : Oct 10, 2017, 8:49:48 PM
+    Author     : lveliz
+*/
+
+.body--ep {
+    background-color: $pages-error-background-color;
+}
+
+.title--ep {
+    color: $pages-error-color-title;
+    font-size: $pages-error-font-size-title;
+    margin-bottom: $pages-error-margin-bottom-title;
+}
+
+.description--ep {
+    color: $pages-error-color-description;
+    font-size: $pages-error-font-size-description;
+    margin-bottom: $pages-error-margin-bottom-description;
+}
+
+.status--ep {
+    color: $pages-error-color-status;
+    font-size: $pages-error-font-size-status;
+}
+
+.links--ep {
+    color: $pages-error-color-links;
+    font-size: $pages-error-font-size-links;
+}
