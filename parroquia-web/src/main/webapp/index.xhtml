@@ -1,14 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm">
+    <h:head>  
+        <title>${props["global.app.pages.title"]}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/app.css"/>
+        <h:outputStylesheet name="bower_components/materialize/dist/css/materialize.min.css"/>
+        <h:outputScript name="bower_components/jquery/dist/jquery.min.js"/>
+        <h:outputScript name="bower_components/materialize/dist/js/materialize.min.js"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    <h:body class="body--lp">
+
+        <h:form>
+            <div class="container">
+                <div class="section">
+                    <div class="row">
+
+                        <div class="col s12 m6 l6 offset-m3 offset-l3">
+                            <lavm:card caValue="ACEPTAR" title="PSJB LOGIN">
+                                <div class="row">
+                                    <lavm:input cod="txtUsuario" label="USUARIO" length="10"/>                                
+                                </div>
+
+                                <div class="row">
+                                    <lavm:input cod="txtPassword" label="PASSWORD" length="10" type="password"/>                                
+                                </div>
+                            </lavm:card>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
     </h:body>
 </html>
 
