@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm">
+      xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>${props["global.app.pages.title"]}</title>
@@ -22,15 +23,14 @@
             <ui:insert name="top">
                 <nav>
                     <h:form>
-                        <div class="nav-wrapper nav--dp">
+                        <div class="nav-wrapper nav-bar--cp">
 
                             <ul class="right hide-on-med-and-down">
-                                <li><a href="mobile.html"><i class="material-icons">mail</i></a></li>
+                                <!--<li><a href="mobile.html"><i class="material-icons">mail</i></a></li>-->
                                 <li>
                                     <i class="material-icons">exit_to_app</i>
                                 </li>
                             </ul>
-
 
                             <ul id="slide-out" class="side-nav">
                             </ul>
@@ -39,6 +39,11 @@
                                 <i class="material-icons">menu</i>
                             </a>
 
+                            <script>
+                                $(function () {
+                                    $(".button-collapse").sideNav();
+                                });
+                            </script>
 
                         </div>
                     </h:form>
@@ -49,7 +54,10 @@
 
         <main>
             <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
+                <h:form id="parentForm">
+                    <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+                    <ui:insert name="content"></ui:insert>
+                </h:form>
             </div>
         </main>
 
