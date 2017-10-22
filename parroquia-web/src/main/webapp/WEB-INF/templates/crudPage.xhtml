@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <title>${props["global.app.pages.title"]}</title>
@@ -28,11 +29,20 @@
                             <ul class="right hide-on-med-and-down">
                                 <!--<li><a href="mobile.html"><i class="material-icons">mail</i></a></li>-->
                                 <li>
-                                    <i class="material-icons">exit_to_app</i>
+                                    <a href="">
+                                        <i class="material-icons">exit_to_app</i>
+                                    </a>
                                 </li>
                             </ul>
 
                             <ul id="slide-out" class="side-nav">
+                                <c:forEach var="r" items="${resourceController.resources}">
+                                    <li>
+                                        <a href="#">
+                                            <h:outputText value="${r.description}" class="black-text"/>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                             </ul>
 
                             <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
@@ -56,7 +66,9 @@
             <div id="content" class="center_content">
                 <h:form id="parentForm">
                     <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
-                    <ui:insert name="content"></ui:insert>
+                    <div class="container">
+                        <ui:insert name="content"></ui:insert>
+                    </div>
                 </h:form>
             </div>
         </main>

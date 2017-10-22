@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -18,11 +19,15 @@
                         <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Links</h5>
+                        <h5 class="white-text">Contactanos</h5>
                         <ul>
-                            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.1.mail']}?subject=PSJB">${props['global.authors.1.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.2.mail']}?subject=PSJB">${props['global.authors.2.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.3.mail']}?subject=PSJB">${props['global.authors.3.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.4.mail']}?subject=PSJB">${props['global.authors.4.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.5.mail']}?subject=PSJB">${props['global.authors.5.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.6.mail']}?subject=PSJB">${props['global.authors.6.name']}</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:${props['global.authors.7.mail']}?subject=PSJB">${props['global.authors.7.name']}</a></li>
                         </ul>
                     </div>
                 </div>
