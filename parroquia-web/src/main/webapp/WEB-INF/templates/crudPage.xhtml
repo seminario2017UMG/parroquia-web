@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title>${props["global.app.pages.title"]}</title>
@@ -15,7 +16,9 @@
         <h:outputStylesheet name="bower_components/materialize/dist/css/materialize.min.css"/>
         <h:outputScript name="bower_components/jquery/dist/jquery.min.js"/>
         <h:outputScript name="bower_components/materialize/dist/js/materialize.min.js"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <h:outputScript name="bower_components/chart.js/dist/Chart.min.js"/>
+        <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->
+        <f:event type="preRenderView" listener="#{sessionController.checkLogin()}"/>
     </h:head>
 
     <h:body>
@@ -27,19 +30,29 @@
                         <div class="nav-wrapper nav-bar--cp">
 
                             <ul class="right hide-on-med-and-down">
-                                <!--<li><a href="mobile.html"><i class="material-icons">mail</i></a></li>-->
+
+                                <li><a href="../../protected/profile/index.xhtml" title="Usuario Activo">#{sessionController.logedInUser.username}</a></li>
+
                                 <li>
-                                    <a href="">
-                                        <i class="material-icons">exit_to_app</i>
-                                    </a>
+                                    <h:commandLink action="/protected/main/index?faces-redirect=true" title="Página de inicio">
+                                        <i class="material-icons">home</i>
+                                    </h:commandLink>
                                 </li>
+
+                                <li>
+                                    <h:commandLink action="/index?faces-redirect=true"
+                                                   actionListener="${sessionController.logout}" title="Cerrar Sesión">
+                                        <i class="material-icons">exit_to_app</i>
+                                    </h:commandLink>
+                                </li>
+
                             </ul>
 
                             <ul id="slide-out" class="side-nav">
-                                <c:forEach var="r" items="${resourceController.resources}">
+                                <c:forEach var="r" items="${sessionController.logedInUser.idRole.resourceAccessList}">
                                     <li>
-                                        <a href="#">
-                                            <h:outputText value="${r.description}" class="black-text"/>
+                                        <a href='#{request.contextPath.concat("/protected/").concat(r.idResource.url)}'>
+                                            <h:outputText value="${r.idResource.description}" class="black-text"/>
                                         </a>
                                     </li>
                                 </c:forEach>
@@ -50,9 +63,7 @@
                             </a>
 
                             <script>
-                                $(function () {
-                                    $(".button-collapse").sideNav();
-                                });
+                                $(".button-collapse").sideNav();
                             </script>
 
                         </div>
@@ -63,10 +74,10 @@
         </div>
 
         <main>
-            <div id="content" class="center_content">
+            <div id="content">
                 <h:form id="parentForm">
                     <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
-                    <div class="container">
+                    <div class="container" id="mainContainer">
                         <ui:insert name="content"></ui:insert>
                     </div>
                 </h:form>

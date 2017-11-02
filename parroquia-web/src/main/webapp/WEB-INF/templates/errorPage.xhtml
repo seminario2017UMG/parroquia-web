@@ -15,15 +15,17 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     </h:head>
 
-    <h:body>
+    <h:body class="body--ep">
 
         <div id="top" class="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top"></ui:insert>
         </div>
 
         <main>
-            <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
+            <div id="content">
+                <div class="container">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
             </div>
         </main>
 

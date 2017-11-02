@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <h:outputStylesheet name="css/app.css"/>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <p:growl id="messages" autoUpdate="true" showDetail="true" showSummary="true"/>
+
+            <p:dataTable id="dtPatients" var="pa" value="#{patientController.patients}"
+                         editable="true"
+                         rows="6"
+                         scrollable="true"
+                         scrollWidth="100%"
+                         tableStyle="width:2000px"
+                         paginator="true">
+
+                <f:facet name="header">${props['pages.crud.patient.datatable.title']}</f:facet>
+                <p:ajax event="rowEdit" listener="#{patientController.edit}" update="dtPatients" />
+
+                <p:column headerText="" width="15" rendered="#{sessionController.hasPermission(6, 2)}">
+                    <p:rowEditor />
+                </p:column>
+
+                <p:column headerText="" width="18" rendered="#{sessionController.hasPermission(6, 3)}">
+                    <h:commandLink actionListener="#{patientController.remove(pa)}">
+                        <i class="material-icons">delete</i>
+                    </h:commandLink>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.fname']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.firstname}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{pa.idPerson.firstname}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.fname2']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.firstname2}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{pa.idPerson.firstname2}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.lname']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.lastname}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{pa.idPerson.lastname}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.lname2']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.lastname2}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{pa.idPerson.lastname2}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.bday']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.birthdate}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:calendar value="#{pa.idPerson.birthdate}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.idtype']}">
+
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.idIdentificationType.description}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <div class="input-field col s12 m6 l6">
+                                <h:selectOneMenu value="#{patientController.person.idIdentificationType}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItems value="#{identificationTypeController.identificationTypes}" var="it"
+                                                   itemLabel="#{it.description}" itemValue="#{it}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </f:facet>
+                    </p:cellEditor>
+
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.idnumber']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.identificationNumber}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{pa.idPerson.identificationNumber}" class="input--row-e"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.gender']}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.gender}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="txtGender" value="#{patientController.person.gender}">
+                                <f:selectItem itemValue="F" itemLabel="FEMENINO"/>
+                                <f:selectItem itemValue="M" itemLabel="MASCULINO"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{props['pages.crud.patient.datatable.column.maritalstatus']}">
+
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{pa.idPerson.idMaritalStatus.description}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="txtMaritalStatus" value="#{patientController.person.idMaritalStatus}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{maritalStatusController.maritalStatuses}" var="ms"
+                                               itemLabel="#{ms.description}" itemValue="#{ms}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+    </h:body>
+</html>
+

@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.parroquiasanjuan.facade.PhoneTypeFacadeLocal;
-import org.parroquiasanjuan.mdl.PhoneType;
+import org.parroquiasanjuan.facade.StateFacadeLocal;
+import org.parroquiasanjuan.mdl.State;
 import org.parroquiasanjuan.mdl.User;
 import org.primefaces.event.RowEditEvent;
 
@@ -19,57 +19,56 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author lveliz
  */
-@Named(value = "phoneTypeController")
+@Named(value = "stateController")
 @RequestScoped
-public class PhoneTypeController implements Serializable {
+public class StateController implements Serializable {
 
-    private static final long serialVersionUID = 3266171823510580593L;
+    private static final long serialVersionUID = 5639175045493514349L;
 
     @EJB
-    private PhoneTypeFacadeLocal facadeLocal;
-    private PhoneType phoneType;
-    private List<PhoneType> phoneTypes;
-    private FacesContext context;
-    private User user;
+    private StateFacadeLocal facadeLocal;
+    private State state;
+    private List<State> states;
+    FacesContext context;
+    User user;
 
     @PostConstruct
     public void init() {
 
-        this.phoneType = new PhoneType();
-        this.phoneTypes = new ArrayList();
-        this.phoneTypes = this.facadeLocal.findAll();
+        this.state = new State();
+        this.states = new ArrayList();
+        this.states = this.facadeLocal.findAll();
         this.context = FacesContext.getCurrentInstance();
         this.user = (User) this.context.getExternalContext().getSessionMap().get("logedInUser");
 
     }
 
-    public PhoneType getPhoneType() {
-        return phoneType;
+    public State getState() {
+        return state;
     }
 
-    public void setPhoneType(PhoneType phoneType) {
-        this.phoneType = phoneType;
+    public void setState(State state) {
+        this.state = state;
     }
 
-    public List<PhoneType> getPhoneTypes() {
-        return phoneTypes;
+    public List<State> getStates() {
+        return states;
     }
 
-    public void setPhoneTypes(List<PhoneType> phoneTypes) {
-        this.phoneTypes = phoneTypes;
+    public void setStates(List<State> states) {
+        this.states = states;
     }
 
     public void create() {
-
         try {
 
-            this.phoneType.setInsertedBy(this.user.getIdUser());
-            this.phoneType.setInsertedOn(new Timestamp(System.currentTimeMillis()));
-            this.phoneType.setUpdatedBy(this.user.getIdUser());
-            this.phoneType.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
-            this.phoneType.setStatus(true);
+            this.state.setStatus(true);
+            this.state.setUpdatedBy(this.user.getIdUser());
+            this.state.setInsertedBy(this.user.getIdUser());
+            this.state.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+            this.state.setInsertedOn(new Timestamp(System.currentTimeMillis()));
 
-            this.facadeLocal.create(this.phoneType);
+            this.facadeLocal.create(this.state);
             this.context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_INFO, "Operación Exitosa",
                     "Se ha creado el nuevo registro en la base de datos."
@@ -88,11 +87,11 @@ public class PhoneTypeController implements Serializable {
 
         try {
 
-            PhoneType p = (PhoneType) event.getObject();
-            p.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
-            this.phoneType.setUpdatedBy(this.user.getIdUser());
+            State s = (State) event.getObject();
+            s.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+            s.setUpdatedBy(this.user.getIdUser());
 
-            this.facadeLocal.edit(p);
+            this.facadeLocal.edit(s);
             this.context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_INFO, "Operación Exitosa",
                     "Se ha edito el registro."
@@ -107,15 +106,15 @@ public class PhoneTypeController implements Serializable {
 
     }
 
-    public void remove(PhoneType p) {
+    public void remove(State s) {
 
         try {
 
-            p.setStatus(false);
-            p.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
-            this.phoneType.setUpdatedBy(this.user.getIdUser());
+            s.setStatus(false);
+            s.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+            this.state.setUpdatedBy(this.user.getIdUser());
 
-            this.facadeLocal.edit(p);
+            this.facadeLocal.edit(s);
             this.context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_INFO, "Operación Exitosa",
                     "Se ha removido el registro."
@@ -129,5 +128,4 @@ public class PhoneTypeController implements Serializable {
         }
 
     }
-
 }

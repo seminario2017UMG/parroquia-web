@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../templates/errorPage.xhtml">
+
+            <ui:define name="content">
+
+                <div class="row">
+                    <div class="col s12 m12 l12 center-align">
+                        <p class="title--ep">${props["global.app.pages.error.500.title"]}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m12 l12 center-align">
+                        <p class="description--ep">${props["global.app.pages.error.500.description"]}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m8 l8 offset-m2 offset-l2 center-align">
+                        <p class="status--ep">${props["global.app.pages.error.500.status"]}</p>
+                    </div>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -9,38 +9,39 @@
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/crudPage.xhtml">
+
             <ui:define name="content">
 
+
                 <div class="section">
+
+                    <div class="row">
+                        <h4>${props['global.app.pages.crud.bloodtype.section2.title']}</h4>
+                    </div>
+
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <p:dataTable id="dtIdentificationTypes" value="${maritalStatusController.maritalStatuses}" var="ms" editable="true">
-                                <f:facet name="header">
-                                    Row Editing
-                                </f:facet>
+                            <p:dataTable id="dtAddresses" var="ad" value="#{addressController.addresses}" editable="true">
+                                <f:facet name="header">${props['global.app.pages.crud.addresses.datatable.title']}</f:facet>
 
-                                <p:ajax event="rowEdit" listener="#{maritalStatusController.edit}" update="dtIdentificationTypes" />
+                                <p:ajax event="rowEdit" listener="#{bloodTypeController.edit}" update="dtAddresses" />
 
-                                <p:column headerText="Id">
+                                <p:column headerText="${props['global.app.pages.crud.addresses.datatable.column.description']}">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{ms.description}"/>
+                                            <h:outputText value="#{ad.address}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{ms.description}"/>
+                                            <p:inputText value="#{ad.address}"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column style="width:32px">
+                                <p:column headerText="${props['global.app.pages.crud.addresses.datatable.column.edit']}" style="width: 15%">
                                     <p:rowEditor />
                                 </p:column>
 
-                                <p:column headerText="${props['global.app.pages.crud.bloodtype.datatable.column.edit']}" style="width: 15%">
-                                    <p:rowEditor />
-                                </p:column>
-
-                                <p:column headerText="${props['global.app.pages.crud.bloodtype.datatable.column.remove']}" style="width: 15%" class="center-align">
+                                <p:column headerText="${props['global.app.pages.crud.addresses.datatable.column.remove']}" style="width: 15%" class="center-align">
                                     <h:commandLink >
                                         <i class="material-icons">delete</i>
                                     </h:commandLink>
@@ -49,9 +50,11 @@
                             </p:dataTable>
                         </div>
                     </div>
+
                 </div>
 
             </ui:define>
+
         </ui:composition>
 
     </body>

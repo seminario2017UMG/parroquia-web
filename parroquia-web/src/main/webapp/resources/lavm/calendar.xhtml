@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="cod" required="true"/>
+        <cc:attribute name="value" required="true"/>
+        <cc:attribute name="cols" required="true"/>
+        <cc:attribute name="required"/>
+        <cc:attribute name="label" type="java.lang.String"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <div class="input-field col ${cc.attrs.cols}">
+            <h:inputText styleClass="datepicker" class="datepicker" value="${cc.attrs.value}" id="${cc.attrs.cod}" required="${cc.attrs.required}" requiredMessage="El campo ${cc.attrs.label} es obligatorio.">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText>
+            <label for="${cc.attrs.cod}">${cc.attrs.label}</label>
+        </div>
+
+        <script>
+            $(".datepicker").pickadate({
+
+                selectMonths: true,
+                selectYears: 75,
+                today: "Hoy",
+                clear: "Cerrar",
+                close: "Aceptar",
+                closeOnSelect: true,
+                labelMonthNext: "Mes siguiente",
+                labelMonthPrev: "Mes Anterior",
+                labelMonthSelect: "Escoge un Mes",
+                labelYearSelect: "Escoge un A&ntilde;o",
+                monthsFull: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                weekdaysFull: ["Domingo", "Lunes", "Martes", "Mi&eacute;rcoles", "Jueves", "Viernes", "S&aacute;bado"],
+                weekdaysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                weekdaysLetter: ["D", "L", "M", "M", "J", "V", "S"],
+                formatSubmit: "yyyy-mm-dd",
+                format: "yyyy-mm-dd",
+                min: new Date(1949, 12, 1),
+                max: true,
+                onClose: function () {
+                    $(".datepicker").blur();
+                    $(".picker").blur();
+                }
+
+            });
+        </script>
+
+    </cc:implementation>
+
+</html>

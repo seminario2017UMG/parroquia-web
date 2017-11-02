@@ -17,25 +17,37 @@
     <h:body class="body--lp">
 
         <h:form>
+
+            <p:growl id="mensajes" autoUpdate="true" showSummary="true"/>
+
             <div class="container">
                 <div class="section">
                     <div class="row">
-
                         <div class="col s12 m6 l6 offset-m3 offset-l3">
-                            <lavm:card caValue="ACEPTAR" title="PSJB LOGIN">
-                                <div class="row">
-                                    <lavm:input cod="txtUsuario" label="USUARIO" length="10"/>                                
+                            <div class="card">
+
+                                <div class="card-content black-text">
+                                    <span class="card-title">LOGIN</span>
+
+                                    <div class="row">
+                                        <lavm:input cod="txtUsuario" label="USUARIO" length="10" value="#{sessionController.user.username}"/>                              
+                                    </div>
+
+                                    <div class="row">
+                                        <lavm:input cod="txtPassword" label="PASSWORD" length="10" type="password" value="#{sessionController.password}"/>                                
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <lavm:input cod="txtPassword" label="PASSWORD" length="10" type="password"/>                                
+                                <div class="card-action">
+                                    <h:commandLink value="ACEPTAR" action="#{sessionController.login}"/>
                                 </div>
-                            </lavm:card>
+
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+
         </h:form>
 
     </h:body>

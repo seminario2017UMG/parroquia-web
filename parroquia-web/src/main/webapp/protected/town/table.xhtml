@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            
+            <p:growl id="messages" autoUpdate="true" showDetail="true" showSummary="true"/>
+
+            <p:dataTable id="dtTowns" var="t" value="#{townController.towns}" editable="true">
+
+
+                <f:facet name="header"></f:facet>
+                <p:ajax event="rowEdit" listener="#{townController.edit}" update="dtTowns"/>
+
+                <p:column headerText="" width="15">
+                    <p:rowEditor />
+                </p:column>
+
+                <p:column headerText="" width="18">
+                    <h:commandLink actionListener="#{townController.remove(t)}">
+                        <i class="material-icons">delete</i>
+                    </h:commandLink>
+                </p:column>
+
+                <p:column headerText="">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{t.state.description}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu style="width:100%" value="#{townController.town.state}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{stateController.states}"
+                                               var="s" itemLabel="#{s.description}" itemValue="#{s}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{t.description}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.description}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+            </p:dataTable>
+
+        </h:form>
+
+    </h:body>
+</html>
+

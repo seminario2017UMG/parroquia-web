@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.parroquiasanjuan.facade.IdentificationTypeFacadeLocal;
 import org.parroquiasanjuan.mdl.IdentificationType;
+import org.parroquiasanjuan.mdl.User;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -26,12 +27,16 @@ public class IdentificationTypeController {
     private IdentificationType identificationType;
     private List<IdentificationType> identificationTypes = new ArrayList();
     FacesContext context;
+    private User user;
 
     @PostConstruct
     public void init() {
+
         this.identificationType = new IdentificationType();
         this.identificationTypes = this.facadeLocal.findAll();
         this.context = FacesContext.getCurrentInstance();
+        this.user = (User) context.getExternalContext().getSessionMap().get("logedInUser");
+
     }
 
     public IdentificationType getIdentificationType() {
@@ -52,10 +57,24 @@ public class IdentificationTypeController {
 
     public void create() {
         try {
+
+            this.identificationType.setStatus(true);
+            this.identificationType.setUpdatedBy(this.user.getIdUser());
+            this.identificationType.setInsertedBy(this.user.getIdUser());
+            this.identificationType.setInsertedOn(new Timestamp(System.currentTimeMillis()));
+            this.identificationType.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+
             this.facadeLocal.create(this.identificationType);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", ""));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Operación Exitosa",
+                    "Se ha creado el nuevo registro en la base de datos."
+            ));
+
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ""));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
     }
 
@@ -64,27 +83,39 @@ public class IdentificationTypeController {
 
             IdentificationType i = (IdentificationType) event.getObject();
             i.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
-            this.facadeLocal.edit(i);
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", ""));
+            this.facadeLocal.edit(i);
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
+
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", e.getMessage()));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
     }
 
-    public void remove(RowEditEvent event) {
+    public void remove(IdentificationType i) {
 
         try {
 
-            IdentificationType i = (IdentificationType) event.getObject();
             i.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
             i.setStatus(false);
 
             this.facadeLocal.edit(i);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUMARY", "DETAIL"));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Operación Exitosa",
+                    "Se ha removido el registro."
+            ));
 
         } catch (Exception e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "SUMARY", e.getMessage()));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
 
     }

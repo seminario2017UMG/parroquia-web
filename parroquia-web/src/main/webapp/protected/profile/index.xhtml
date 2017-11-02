@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/crudPage.xhtml">
+
+            <ui:define name="content">
+
+
+                <div class="section">
+
+                    <div class="row red">
+
+                        <div class="col s12 m3 l3 cyan">
+                            <i class="material-icons" style="font-size: 200px">account_box</i>
+                        </div>
+
+                        <div class="col s12 m9 l9">
+                            
+                            <div class="row yellow">
+                                <h3>#{props["paginas.perfil.titulo"]}</h3>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6 m4 l4 green">
+                                    <p>#{props["paginas.perfil.data.nombre"]} #{sessionController.logedInUser.passwordHash}</p>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

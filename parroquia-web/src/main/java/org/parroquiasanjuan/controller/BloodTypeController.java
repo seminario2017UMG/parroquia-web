@@ -12,14 +12,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.parroquiasanjuan.facade.BloodTypeFacadeLocal;
 import org.parroquiasanjuan.mdl.BloodType;
+import org.parroquiasanjuan.mdl.User;
 import org.primefaces.event.RowEditEvent;
 
 /**
  *
  * @author lveliz
  */
-@Named(value = "bloodTypeController")
 @RequestScoped
+@Named(value = "bloodTypeController")
 public class BloodTypeController implements Serializable {
 
     private static final long serialVersionUID = 2623206316484351519L;
@@ -29,12 +30,14 @@ public class BloodTypeController implements Serializable {
     private BloodType bloodType;
     private List<BloodType> bloodTypes = new ArrayList();
     private FacesContext context;
+    private User user;
 
     @PostConstruct
     public void init() {
         this.bloodType = new BloodType();
         this.bloodTypes = this.facadeLocal.findAll();
         this.context = FacesContext.getCurrentInstance();
+        this.user = (User) context.getExternalContext().getSessionMap().get("logedInUser");
     }
 
     public BloodType getBloodType() {
@@ -54,40 +57,72 @@ public class BloodTypeController implements Serializable {
     }
 
     public void create() {
+        
         try {
+
+            this.bloodType.setStatus(true);
+            this.bloodType.setUpdatedBy(this.user.getIdUser());
+            this.bloodType.setInsertedBy(this.user.getIdUser());
+            this.bloodType.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+            this.bloodType.setInsertedOn(new Timestamp(System.currentTimeMillis()));
+
             this.facadeLocal.create(this.bloodType);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", ""));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Operación Exitosa",
+                    "Se ha creado el nuevo registro en la base de datos."
+            ));
+
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ""));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
+        
     }
 
     public void edit(RowEditEvent event) {
+        
         try {
 
             BloodType b = (BloodType) event.getObject();
             b.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
-            this.facadeLocal.edit(b);
+            b.setInsertedBy(this.user.getIdUser());
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", ""));
+            this.facadeLocal.edit(b);
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Operación Exitosa",
+                    "Se ha edito el registro."
+            ));
+            
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", e.getMessage()));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
+        
     }
 
-    public void remove(RowEditEvent event) {
+    public void remove(BloodType b) {
 
         try {
 
-            BloodType b = (BloodType) event.getObject();
             b.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+            b.setUpdatedBy(this.user.getIdUser());
             b.setStatus(false);
 
             this.facadeLocal.edit(b);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUMARY", "DETAIL"));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Operación Exitosa",
+                    "Se ha removido el registro."
+            ));
 
         } catch (Exception e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "SUMARY", e.getMessage()));
+            this.context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Algo salio mal",
+                    "Lo sentimos ha ocurrido un error."
+            ));
         }
 
     }

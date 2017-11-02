@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:lavm="http://xmlns.jcp.org/jsf/composite/lavm"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/crudPage.xhtml">
+
+            <ui:define name="content">
+
+                <h:panelGroup layout="block" id="formPanel">
+                    <div class="section">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <div class="card-panel">
+
+                                    <div class="row">
+                                        <div class="col s12 m12 l12">
+                                            <h4>#{props["pages.crud.patient.section1.title"]}</h4>    
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <lavm:input cod="txtPrimerNombre" cols="s12 m6 l6"
+                                                    label="Primer Nombre" required="true"
+                                                    value="#{userController.person.firstname}"/>
+
+                                        <lavm:input cod="txtSegundoNombre" cols="s12 m6 l6"
+                                                    label="Segundo Nombre" required="true"
+                                                    value="#{userController.person.firstname2}"/>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <lavm:input cod="txtPrimerApellido" cols="s12 m6 l6"
+                                                    label="Primer Apellido" required="true"
+                                                    value="#{userController.person.lastname}"/>
+
+                                        <lavm:input cod="txtSegundoApellido" cols="s12 m6 l6"
+                                                    label="Segundo Apellido" required="true"
+                                                    value="#{userController.person.lastname2}"/>
+
+                                    </div>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('select').material_select();
+                                            Materialize.updateTextFields();
+                                        });
+                                    </script>
+
+                                    <div class="row">   
+
+                                        <div class="input-field col s12 m6 l6">
+
+                                            <h:selectOneMenu id="txtIdentificationType"
+                                                             value="#{userController.person.idIdentificationType}"
+                                                             converter="omnifaces.SelectItemsConverter" required="true">
+
+                                                <f:selectItem itemLabel="Escoge una opci&oacute;n" itemValue=""/>
+                                                <f:selectItems value="#{identificationTypeController.identificationTypes}" var="it"
+                                                               itemLabel="#{it.description}" itemValue="#{it}"/>
+
+                                            </h:selectOneMenu>
+
+                                            <label for="txtIdentificationType">Tipo de Identificaci&oacute;n</label>
+
+                                        </div>
+
+                                        <lavm:input cod="txtNumeroIdentificacion" cols="s12 m6 l6"
+                                                    label="N&uacute;mero de Documento de Identificaci&oacute;n"
+                                                    value="#{userController.person.identificationNumber}" required="true"/>
+
+                                    </div>
+
+
+                                    <div class="row">   
+
+                                        <div class="input-field col s12 m6 l6">
+
+                                            <h:selectOneMenu id="txtMaritalStatus" 
+                                                             value="#{userController.person.idMaritalStatus}"
+                                                             converter="omnifaces.SelectItemsConverter" required="true">
+
+                                                <f:selectItem itemLabel="Escoge una opci&oacute;n" itemValue=""/>
+                                                <f:selectItems value="#{maritalStatusController.maritalStatuses}"
+                                                               var="ms" itemLabel="#{ms.description}" itemValue="#{ms}"/>
+
+                                            </h:selectOneMenu>
+
+                                            <label for="txtMaritalStatus">Estado Civil</label>
+
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <h:selectOneMenu id="txtGender" value="#{userController.person.gender}" required="true">
+                                                <f:selectItem itemLabel="Escoge una opci&oacute;n" itemValue=""/>
+                                                <f:selectItem itemValue="F" itemLabel="FEMENINO"/>
+                                                <f:selectItem itemValue="M" itemLabel="MASCULINO"/>
+                                            </h:selectOneMenu>
+                                            <label for="txtMaritalStatus">Genero</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <lavm:input cod="txtEmailAddress" cols="s12 m6 l6"
+                                                    label="Correo Electr&oacute;nico"
+                                                    value="#{userController.person.emailAddress}" required="true"/>
+
+                                        <lavm:input cod="txtTempPassword" cols="s12 m6 l6"
+                                                    label="Contrase&ntilde;a Temporal"
+                                                    value="#{userController.password}" required="true" disabled="true"/>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <lavm:calendar cod="txtBirthdate" cols="s12 m6 l6"
+                                                       value="#{userController.person.birthdate}"
+                                                       label="Fecha de Nacimiento" required="true"/>
+
+                                        <div class="input-field col s12 m6 l6">
+
+                                            <h:selectOneMenu id="txtRoles" 
+                                                             value="#{userController.user.idRole}"
+                                                             converter="omnifaces.SelectItemsConverter" required="true">
+
+                                                <f:selectItem itemLabel="Escoge una opci&oacute;n" itemValue=""/>
+                                                <f:selectItems value="#{roleController.roles}"
+                                                               var="r" itemLabel="#{r.description}" itemValue="#{r}"/>
+
+                                            </h:selectOneMenu>
+
+                                            <label for="txtRoles">Rol de Usuario</label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col s12 m6 l6">
+                                            <p:commandLink styleClass="lime accent-4 btn btn-block"
+                                                           value="REGISTRAR" style="margin-top: 22px"
+                                                           actionListener="#{userController.create}" update="iFrameTable, formPanel"/>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <div class="divider"></div>
+
+                <div class="section">
+
+                    <div class="row">
+                        <h4>#{props["pages.crud.patient.section2.title"]}</h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <h:panelGrid id="iFrameTable">
+                                <iframe src="table.xhtml" width="100%" height="550" frameborder="0"></iframe>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

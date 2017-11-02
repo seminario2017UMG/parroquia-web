@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <p:growl id="messages" autoUpdate="true" showDetail="true" showSummary="true"/>
+
+            <p:dataTable id="dtStates" var="s" value="#{stateController.states}" editable="true" tableStyle="width:100"
+                         paginator="true"
+                         rows="6"
+                         scrollable="true"
+                         scrollWidth="100%">
+
+                <f:facet name="header"></f:facet>
+                <p:ajax event="rowEdit" listener="#{stateController.edit}" update="dtStates"/>
+
+                <p:column headerText="">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{s.description}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{s.description}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="" rendered="#{sessionController.hasPermission(8, 3)}">
+                    <p:rowEditor />
+                </p:column>
+
+                <p:column headerText="" rendered="#{sessionController.hasPermission(8, 3)}">
+                    <h:commandLink actionListener="#{stateController.remove(s)}">
+                        <i class="material-icons">delete</i>
+                    </h:commandLink>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

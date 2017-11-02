@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/crudPage.xhtml">
+
+            <ui:define name="content">
+
+                
+                <p>#{sessionController.logedInUser.idRole.description}</p>
+                
+                <ol>
+                    <li><a href="../bloodType/index.xhtml">BLOOD</a></li>
+                    <li><a href="../identificationType/index.xhtml">ID TYPE</a></li>
+                    <li><a href="../maritalStatus/index.xhtml">MS</a></li>
+                    <li><a href="../patient/index.xhtml">PATIENT</a></li>
+                    <li><a href="../phoneType/index.xhtml">PHONE T</a></li>
+                    <li><a href="../state/index.xhtml">STATE</a></li>
+                    <li><a href="../town/index.xhtml">TOWN</a></li>
+                    <li><a href="../user/index.xhtml">USER</a></li>
+                    <li><a href="../user/index.xhtml">EMPLOYEE</a></li>
+                    <li><a href="../user/index.xhtml">VISIT</a></li>
+                    <li><a href="../user/index.xhtml">PHONE</a></li>
+                    <li><a href="../user/index.xhtml">ADDRESS</a></li>
+                </ol>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

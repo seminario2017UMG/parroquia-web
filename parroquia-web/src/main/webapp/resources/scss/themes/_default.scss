@@ -3,10 +3,10 @@
     Author     : lveliz
 */
 
-$pages-error-background-color: $negro-1;
-$pages-error-color-title: $dorado;
+$pages-error-background-color: #eeeeee ;
+$pages-error-color-title: #c62828;
 $pages-error-color-description: $gris-1;
-$pages-error-color-status: $gris-1;
+$pages-error-color-status: $negro-1;
 $pages-error-color-links: $blanco;
 $pages-error-font-size-title: 100px;
 $pages-error-font-size-description: 35px;
@@ -20,4 +20,5 @@ $pages-crud-background-color: $blanco-grisoso-1;
 
 $pages-login-background-color: $azul-2;
 
-
+$input-row-editable-width: 100%;
+$input-row-editable-text-transofrm: uppercase;
